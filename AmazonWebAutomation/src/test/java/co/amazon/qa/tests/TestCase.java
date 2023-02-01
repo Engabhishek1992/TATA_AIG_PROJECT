@@ -72,6 +72,7 @@ public class TestCase extends TestBase{
 	
 	@Test(enabled=true,description="Add product to cart and validate color and price ")
 	public void tc_03() throws InterruptedException {
+		logger =report.createTest("Add product to cart and validate color and price ");
         String ParentWindowId =driver.getWindowHandle();
         Set<String> childWindowId =driver.getWindowHandles();
         List<String> list= new ArrayList<String>(childWindowId);
@@ -81,11 +82,14 @@ public class TestCase extends TestBase{
 		Assert.assertTrue(productName.contains(productDetails));
 		productDetaislPage.addToCart();	
 		productDetaislPage.navToCart();
-		
+		logger =report.createTest("Add product to cart and validate color and price ");
+
 	}
 	
 	@Test(description="Checkout the product and fill the form")
 	public void tc_05() throws InterruptedException {
+		logger =report.createTest("Checkout the product and fill the form");
+
         //addTocartPage.proceedToCheckOut();
         addTocartPage.enterEmail("8660803233","Abhishel@1234");
 		
