@@ -1,0 +1,12 @@
+*.class
+*.html
+*.properties
+*.xml
+*.png
+*.css
+AmazonWebAutomation/target/classes/META-INF/MANIFEST.MF
+AmazonWebAutomation/test-output/collapseall.gif
+AmazonWebAutomation/test-output/jquery-1.7.1.min.js
+AmazonWebAutomation/test-output/testng-reports.js
+AmazonWebAutomation/.settings/org.eclipse.jdt.core.prefs
+AmazonWebAutomation/.settings/org.eclipse.m2e.core.prefs
