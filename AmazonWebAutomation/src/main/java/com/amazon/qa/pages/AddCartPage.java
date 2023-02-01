@@ -11,41 +11,56 @@ import org.openqa.selenium.support.PageFactory;
 import com.amazon.qa.base.TestBase;
 import com.amazon.qa.utility.UtileClass;
 
-public class AddCartPage extends TestBase{
-	
-	UtileClass utile= new UtileClass();
-	
-	@FindBy(css="#proceed-to-checkout-action")
+public class AddCartPage extends TestBase {
+
+	UtileClass utile = new UtileClass();
+
+	@FindBy(css = "#proceed-to-checkout-action")
 	WebElement proceedToCheckOut;
-	
-	@FindBy(css="#add-to-cart-button")
-	WebElement addToCart;
-	
-	@FindBy(css="#nav-cart-count")
-	WebElement navigateTo;
 
-   public AddCartPage(){
-	  
-	   PageFactory.initElements(driver, this);
-   }
-   
-   public void proceedToCheckOut(){
-	   utile.waitTillPageLoad();
-	   proceedToCheckOut.click();
-   }
+	@FindBy(xpath = "//input[@type='email']")
+	WebElement enterEmail;
 
+	@FindBy(xpath = "//*[@type='submit']")
+	WebElement conntine;
 
-	public String getProductName(String productName){
-		
-		try{
-			String product=driver.findElement(By.xpath("//span[@class='a-truncate-full a-offscreen'][contains(text(),'"+productName+"')]")).getText();
+	@FindBy(xpath = "//*[@type='password']")
+	WebElement password;
+
+	public AddCartPage() {
+
+		PageFactory.initElements(driver, this);
+	}
+
+	public void proceedToCheckOut() {
+		utile.waitTillPageLoad();
+		proceedToCheckOut.click();
+	}
+
+	public void enterEmail(String email, String inpassword) throws InterruptedException {
+
+		enterEmail.sendKeys(email);
+		;
+		Thread.sleep(1000);
+		conntine.click();
+		Thread.sleep(1000);
+		password.sendKeys(inpassword);
+	}
+
+	public String getProductName(String productName) {
+
+		try {
+			String product = driver
+					.findElement(By.xpath(
+							"//span[@class='a-truncate-full a-offscreen'][contains(text(),'" + productName + "')]"))
+					.getText();
 			return product;
-			
-		}catch(NoSuchElementException e){
+
+		} catch (NoSuchElementException e) {
 			e.printStackTrace();
-			return null ;
+			return null;
 		}
-				
+
 	}
 
 }

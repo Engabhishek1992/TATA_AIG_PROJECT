@@ -1,5 +1,6 @@
 package com.amazon.qa.utility;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.util.Units;
@@ -20,27 +21,24 @@ import dev.failsafe.Timeout;
 public class UtileClass extends TestBase{
 	static long PAGE_LOAD_TIMEOUT=10;
 	static long IMPLICITE_WAIT=10;
-//	WebDriverWait wait = new WebDriverWait(driver, 20) ;
 	
-	
-//	public void waitTillWebElementLoad(WebElement element){
-//		
-//		wait.until(ExpectedConditions.visibilityOf(element));
-//	}
-//	
 	public Timeouts waitTillPageLoad(){
 		
-		return driver.manage().timeouts().implicitlyWait(2000,TimeUnit.SECONDS);
+		return driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
 	}
 	
-//	public void fluewentWait(WebElement element){
-//		
-//		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-//				.withTimeout(5,TimeUnit.SECONDS)
-//				.pollingEvery(5, TimeUnit.SECONDS)
-//				.ignoring(NoSuchElementException.class);
-//		
-//	}
+	public void getWindowHandle(List<String> list,String parentWindowId ) throws InterruptedException{
+	       for(String windowId:list){
+	    	   if(!windowId.equals(parentWindowId)){
+	    		   Thread.sleep(2000);
+	    		   driver.switchTo().window(windowId);
+	 
+	    		   break;
+	    	   }
+	       }
+
+		
+	}
 
 
 	

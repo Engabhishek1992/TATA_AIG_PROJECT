@@ -3,6 +3,8 @@ package co.amazon.qa.tests;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -12,6 +14,7 @@ import com.amazon.qa.pages.AddCartPage;
 import com.amazon.qa.pages.HomePage;
 import com.amazon.qa.pages.ProductDetailsPage;
 import com.amazon.qa.pages.SearchResultPage;
+import com.amazon.qa.utility.UtileClass;
 
 public class TestCase extends TestBase{
 	
@@ -22,6 +25,7 @@ public class TestCase extends TestBase{
 	ProductDetailsPage productDetaislPage;
 	SearchResultPage searchPage;
 	AddCartPage addTocartPage;
+	UtileClass util=new UtileClass();
 	@BeforeClass
 	public void nevigateUrl(){
 		logger =report.createTest("Naviaget the Amazon url");
@@ -71,36 +75,19 @@ public class TestCase extends TestBase{
         String ParentWindowId =driver.getWindowHandle();
         Set<String> childWindowId =driver.getWindowHandles();
         List<String> list= new ArrayList<String>(childWindowId);
-       for(String windowId:list){
-    	   if(!windowId.equals(ParentWindowId)){
-    		   System.out.println("Parent id "+ParentWindowId);
-    		   System.out.println("Parent id "+childWindowId);
-    		   Thread.sleep(2000);
-    		   driver.switchTo().window(windowId);
- 
-    		   break;
-    	   }
-       }
-
+        util.getWindowHandle(list,ParentWindowId);
 		String productName =productDetaislPage.getProductTitle();
 		System.out.println("Product name is "+productName+"====="+productDetails);
 		Assert.assertTrue(productName.contains(productDetails));
-//		String productSize =productDetaislPage.getProductDeatails();
-//		Assert.assertEquals(productSize, "8GB RAM + 128GB Storage");
-		productDetaislPage.addToCart();
+		productDetaislPage.addToCart();	
 		productDetaislPage.navToCart();
 		
 	}
 	
 	@Test(description="Checkout the product and fill the form")
 	public void tc_05() throws InterruptedException {
-     
-//		boolean productName =productDetaislPage.getProductTitle("Samsung Galaxy S20 FE 5G");
-//		Assert.assertTrue(productName);
-//		String productSize =productDetaislPage.getProductDeatails("");
-//		Assert.assertEquals(productSize, "8GB RAM + 128GB Storage");
-//		productDetaislPage.addToCart();
-//		productDetaislPage.navToCart();
+        //addTocartPage.proceedToCheckOut();
+        addTocartPage.enterEmail("8660803233","Abhishel@1234");
 		
 	}
 

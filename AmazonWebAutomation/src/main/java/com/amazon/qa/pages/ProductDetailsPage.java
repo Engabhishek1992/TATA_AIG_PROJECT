@@ -1,8 +1,12 @@
 package com.amazon.qa.pages;
 
 import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import com.amazon.qa.base.TestBase;
@@ -11,10 +15,10 @@ import com.amazon.qa.utility.UtileClass;
 public class ProductDetailsPage extends TestBase {
 
 	UtileClass utile = new UtileClass();
-
+	Actions action = new Actions(driver);
 	@FindBy(css = "#title #productTitle")
 	WebElement productTitle;
-	
+
 	@FindBy(css = "#inline-twister-expanded-dimension-text-size_name")
 	WebElement productSize;
 
@@ -37,46 +41,41 @@ public class ProductDetailsPage extends TestBase {
 		return productTitle.getText();
 	}
 
-/*	public String getProductDeatails(String productSize) {
+	public String getProductDeatails() {
 		utile.waitTillPageLoad();
-		String productSpecification = null;
-		if (productDetails.size() != 0) {
-			for (WebElement element : productDetails) {
 
-				if (element.getText().equals(productSize)) {
-					productSpecification = element.getText();
-					break;
-				}
-			}
-		}
-		return productSpecification;
-	}
-*/
-		public String getProductDeatails() {
-		utile.waitTillPageLoad();
-		
 		return productSize.getText();
 	}
-	 
+
 	public void addToCart() {
 		utile.waitTillPageLoad();
 		try {
-			addToCart.isDisplayed();
+			if (addToCart.isDisplayed())
+				;
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToCart);
 			addToCart.click();
+
 		} catch (NoSuchFieldError e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void navToCart() {
+	public void navToCart() throws InterruptedException {
 		utile.waitTillPageLoad();
-		try{
-			navigateToCart.isDisplayed();
-			navigateToCart.click();
-		}catch(NoSuchElementException e){
+		try {
+			Thread.sleep(1000);
+			if (navigateToCart.isDisplayed()) {
+				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", navigateToCart);
+				navigateToCart.click();
+			} else {
+				driver.switchTo().frame(1);
+				Thread.sleep(1000);
+				driver.findElement(By.cssSelector("#attach-sidesheet-checkout-button")).click();
+			}
+		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

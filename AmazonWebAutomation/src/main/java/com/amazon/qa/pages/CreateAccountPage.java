@@ -19,7 +19,6 @@ public class CreateAccountPage extends TestBase{
 	
 	@FindBy(xpath="//*[@type='submit']")
 	WebElement clickToSubmi;
-
 	
 	@FindBy(css="#add-new-address-popover-link")
 	WebElement addNewAddress;
