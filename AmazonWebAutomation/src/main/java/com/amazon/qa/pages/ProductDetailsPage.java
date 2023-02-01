@@ -47,12 +47,13 @@ public class ProductDetailsPage extends TestBase {
 		return productSize.getText();
 	}
 
-	public void addToCart() {
+	public void addToCart() throws InterruptedException {
 		utile.waitTillPageLoad();
 		try {
 			if (addToCart.isDisplayed())
 				;
 			((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", addToCart);
+			Thread.sleep(1000);
 			addToCart.click();
 
 		} catch (NoSuchFieldError e) {
@@ -63,12 +64,14 @@ public class ProductDetailsPage extends TestBase {
 	public void navToCart() throws InterruptedException {
 		utile.waitTillPageLoad();
 		try {
-			Thread.sleep(1000);
+			
 			if (navigateToCart.isDisplayed()) {
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", navigateToCart);
+				Thread.sleep(10000);
 				navigateToCart.click();
 			} else {
-				driver.switchTo().frame(1);
+				Thread.sleep(5000);
+				driver.switchTo().frame(driver.findElement(By.id("attach-desktop-sideSheet")));
 				Thread.sleep(1000);
 				driver.findElement(By.cssSelector("#attach-sidesheet-checkout-button")).click();
 			}

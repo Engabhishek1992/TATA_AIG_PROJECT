@@ -24,7 +24,7 @@ public class UtileClass extends TestBase{
 	
 	public Timeouts waitTillPageLoad(){
 		
-		return driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		return driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
 	}
 	
 	public void getWindowHandle(List<String> list,String parentWindowId ) throws InterruptedException{
