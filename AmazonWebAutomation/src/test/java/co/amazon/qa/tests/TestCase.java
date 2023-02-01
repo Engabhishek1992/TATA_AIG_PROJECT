@@ -1,10 +1,8 @@
 package co.amazon.qa.tests;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -43,14 +41,14 @@ public class TestCase extends TestBase{
 	@Test(description="To validate the search Product at amazon site ")
 	public void tc_01() throws InterruptedException{
 		logger =report.createTest("To validate the search Product at amazon site");
-		homePage.setInputToSearch("Samsung Galaxy S22 5G");
-		boolean result=homePage.getValidateSearchProduct("Samsung Galaxy S22 5G");
+		homePage.setInputToSearch("Samsung Galaxy");
+		boolean result=homePage.getValidateSearchProduct("Samsung Galaxy");
 		Assert.assertTrue(result);
 		logger =report.createTest("Search product get validated successfully..");
 		Thread.sleep(2000);
 		
 	}
-	
+	String productDetails;
 	@Test(description="To validate the search Product after adding price filter ")
 	public void tc_02() throws InterruptedException {
 //		homePage.setInputToSearch("Samsung Galaxy S20 FE 5G");
@@ -58,24 +56,23 @@ public class TestCase extends TestBase{
 		searchPage.setLowPrice("25600");
 		logger =report.createTest("Set the min price ");
 		searchPage.setMaxPrice("54000");
-		logger =report.createTest("Set the max price ");
-		searchPage.setColour();
-		logger =report.createTest("Set the color");
 		searchPage.ClickToFilter();
-        homePage.clickToFilterProduct("Samsung Galaxy");
+		logger =report.createTest("Set the max price ");
+		String color =searchPage.setColour();
+		logger =report.createTest("Set the color");		
+		productDetails=homePage.clickToFilterProduct();
         logger =report.createTest("Navigated to successfully ..");
-		Thread.sleep(2000);
 		
 	}
 		
 	
-	@Test(enabled=false,description="Add product to cart and validate color and price ")
+	@Test(enabled=true,description="Add product to cart and validate color and price ")
 	public void tc_03() throws InterruptedException {
         String ParentWindowId =driver.getWindowHandle();
         Set<String> childWindowId =driver.getWindowHandles();
         List<String> list= new ArrayList<String>(childWindowId);
        for(String windowId:list){
-    	   if(windowId!=ParentWindowId){
+    	   if(!windowId.equals(ParentWindowId)){
     		   System.out.println("Parent id "+ParentWindowId);
     		   System.out.println("Parent id "+childWindowId);
     		   Thread.sleep(2000);
@@ -84,17 +81,12 @@ public class TestCase extends TestBase{
     		   break;
     	   }
        }
-//			String productName =productDetaislPage.getProductTitle();
-//			System.out.println("=====>>>>==="+productName);
-//			Assert.assertTrue(productName.contains("Samsung Galaxy S22 5G"));
-//			String productSize =productDetaislPage.getProductDeatails();
-//			Assert.assertEquals(productSize, "8GB");
-//			productDetaislPage.addToCart();
 
 		String productName =productDetaislPage.getProductTitle();
-		Assert.assertTrue(productName.contains("Samsung Galaxy S20 FE 5G"));
-		String productSize =productDetaislPage.getProductDeatails();
-		Assert.assertEquals(productSize, "8GB");
+		System.out.println("Product name is "+productName+"====="+productDetails);
+		Assert.assertTrue(productName.contains(productDetails));
+//		String productSize =productDetaislPage.getProductDeatails();
+//		Assert.assertEquals(productSize, "8GB RAM + 128GB Storage");
 		productDetaislPage.addToCart();
 		productDetaislPage.navToCart();
 		

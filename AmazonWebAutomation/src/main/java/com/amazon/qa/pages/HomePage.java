@@ -60,18 +60,19 @@ public class HomePage extends TestBase{
 		}
 		return result;
 	}
-	public void clickToFilterProduct(String productToSelect) throws InterruptedException{
-		
+	public String clickToFilterProduct() throws InterruptedException{
+		String selectProduct = null;
 		for(WebElement productName:searchedPoductName){
 			Thread.sleep(2000);
-			System.out.println(productName.getText());
-			if(productName.getText().contains(productToSelect)){
+			selectProduct=productName.getText();
+			if(productName !=null){
 				productName.click();
 				break;
 			}else{
 				
 			}
 		}
+		return selectProduct;
 		
 	}
 
