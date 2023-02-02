@@ -26,6 +26,9 @@ public class AddCartPage extends TestBase {
 
 	@FindBy(xpath = "//*[@type='password']")
 	WebElement password;
+	
+	@FindBy(css = "#signInSubmit")
+	WebElement clickSign;
 
 	public AddCartPage() {
 
@@ -45,6 +48,8 @@ public class AddCartPage extends TestBase {
 		conntine.click();
 		Thread.sleep(1000);
 		password.sendKeys(inpassword);
+		clickSign.click();
+		
 	}
 
 	public String getProductName(String productName) {

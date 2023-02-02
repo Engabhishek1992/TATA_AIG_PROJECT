@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.security.auth.login.AccountException;
+
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -11,6 +13,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.amazon.qa.base.TestBase;
 import com.amazon.qa.pages.AddCartPage;
+import com.amazon.qa.pages.CreateAccountPage;
 import com.amazon.qa.pages.HomePage;
 import com.amazon.qa.pages.ProductDetailsPage;
 import com.amazon.qa.pages.SearchResultPage;
@@ -25,6 +28,7 @@ public class TestCase extends TestBase{
 	ProductDetailsPage productDetaislPage;
 	SearchResultPage searchPage;
 	AddCartPage addTocartPage;
+	CreateAccountPage acount;
 	UtileClass util=new UtileClass();
 	@BeforeClass
 	public void nevigateUrl(){
@@ -35,7 +39,7 @@ public class TestCase extends TestBase{
 		productDetaislPage=new ProductDetailsPage();
 		searchPage =new SearchResultPage();
 		addTocartPage=new AddCartPage();
-		
+		acount=new CreateAccountPage();
 		String titleOfPage=driver.getTitle();
 		System.out.println(titleOfPage);
 		Assert.assertEquals(titleOfPage, "Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in");
@@ -91,7 +95,18 @@ public class TestCase extends TestBase{
 		logger =report.createTest("Checkout the product and fill the form");
 
         //addTocartPage.proceedToCheckOut();
-        addTocartPage.enterEmail("8660803233","Abhishel@1234");
+        addTocartPage.enterEmail(prop.getProperty("User"),prop.getProperty("pass"));
+        acount.clickAddNewAddress();
+        acount.selectCounty("INDIA");
+        acount.fullName("abhishek");
+        acount.fillMobile("8737373737");
+        acount.fillPostal("102020");
+        acount.addressLine1("h1-dss");
+        acount.addressLine2("Noida");
+        acount.addressLine3("UP");
+        acount.addressCity("noida");
+        acount.addressState("UP");
+        
 		
 	}
 

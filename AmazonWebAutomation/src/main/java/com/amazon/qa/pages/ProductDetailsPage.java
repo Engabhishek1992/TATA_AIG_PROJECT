@@ -28,7 +28,7 @@ public class ProductDetailsPage extends TestBase {
 	@FindBy(css = "#add-to-cart-button")
 	WebElement addToCart;
 
-	@FindBy(css = "#nav-cart-count")
+	@FindBy(css = "#nav-cart-count[aria-hidden='false']")
 	WebElement navigateToCart;
 
 	public ProductDetailsPage() {
@@ -67,15 +67,16 @@ public class ProductDetailsPage extends TestBase {
 			
 			if (navigateToCart.isDisplayed()) {
 				((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", navigateToCart);
-				Thread.sleep(10000);
+				Thread.sleep(1000);
 				navigateToCart.click();
 			} else {
-				Thread.sleep(5000);
-				driver.switchTo().frame(driver.findElement(By.id("attach-desktop-sideSheet")));
-				Thread.sleep(1000);
-				driver.findElement(By.cssSelector("#attach-sidesheet-checkout-button")).click();
+
+				driver.findElement(By.xpath("//*[@id='attach-sidesheet-checkout-button']//input")).click();
 			}
 		} catch (NoSuchElementException e) {
+			Thread.sleep(3000);
+			driver.findElement(By.xpath("//*[@id='attach-sidesheet-checkout-button']//input")).click();
+
 			e.printStackTrace();
 		}
 
